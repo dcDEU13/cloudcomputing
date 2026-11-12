@@ -14,7 +14,7 @@ def predictv1(req: func.HttpRequest) -> func.HttpResponse:
     techsupport = req.params.get("techsupport")
 
     if tenure and monthly and techsupport:
-        prediction = make_prediction(7
+        prediction = make_prediction(
                                      tenure = float(tenure),
                                      MonthlyCharges = float(monthly),
                                      TechSupport_yes = float(techsupport))
