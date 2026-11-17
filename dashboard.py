@@ -39,9 +39,10 @@ st.set_page_config(page_title="Telco Churn Predictor", page_icon="📊")
 st.title("Telco Churn Prediction")
 st.write("Enter customer details and get a churn prediction.")
 
-tenure = st.selectbox("Tenure (mths)", options=list(range(121)))
+# tenure = st.selectbox("Tenure (mths)", options=list(range(121)))
+tenure = st.select_slider("Tenure (mths)",options=list(range(121)))
 
-monthly = st.number_input(
+monthly = st.slider(
     "Monthly Charges", min_value=0, max_value=1000, step=10, value=70
 )
 
@@ -54,13 +55,14 @@ payload = {
 }
 
 try:
-    data = fetch_prediction(payload)
-    prediction = data.get("prediction")
+    data = fetch_prediction_from_production(payload)
+    # prediction = data.get("prediction")
+    prediction =data.text
 
     st.subheader("Result")
     st.write(f"Model prediction: **{prediction}**")
 
-    st.json(data)
+    # st.json(data)
 
 except requests.RequestException as e:
     st.error(f"Error calling API: {e}")
